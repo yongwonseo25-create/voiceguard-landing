@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoiceGuard — AI CareOps 운영·증빙 플랫폼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       CSS VARIABLES — Premium Warm Editorial Palette
+       ============================================================ */
+    :root {
+      --bg:           #F5EFE4;
+      --bg-alt:       #EFE8DA;
+      --panel:        #FAF5EC;
+      --card:         #FFF9F1;
+      --card-hover:   #FFFCF5;
+      --orange:       #D86A23;
+      --orange-deep:  #C95C18;
+      --orange-light: #FDEBD8;
+      --orange-glow:  rgba(216,106,35,0.18);
+      --brown:        #8A6A4A;
+      --border:       #CDBA9F;
+      --border-hover: #D86A23;
+      --text:         #201A16;
+      --text-sub:     #7B6A5B;
+      --shadow-xs:    0 1px 4px rgba(80,55,30,0.06);
+      --shadow-sm:    0 2px 12px rgba(80,55,30,0.08);
+      --shadow-md:    0 6px 24px rgba(80,55,30,0.10);
+      --shadow-lg:    0 16px 40px rgba(80,55,30,0.14);
+      --shadow-hover: 0 14px 36px rgba(80,55,30,0.14);
+      --header-h:     100px;
+      --max-w:        1200px;
+      --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* ============================================================
+       RESET + BASE
+       ============================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Subtle warm grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: 1;
+    }
+
+    /* ============================================================
+       HEADER — Premium Sticky Navigation
+       ============================================================ */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: var(--header-h);
+      background: rgba(245,239,228,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(205,186,159,0.55);
+      box-shadow: 0 4px 24px rgba(80,55,30,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 56px;
+      transition: box-shadow 0.3s var(--ease-out);
+    }
+
+    header.scrolled {
+      box-shadow: 0 6px 32px rgba(80,55,30,0.10);
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo-img {
+      height: 88px;
+      width: auto;
+      display: block;
+    }
+
+    /* CTA Button */
+    .btn-demo {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #C95C18 0%, #E07830 60%, #D86A23 100%);
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 24px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      letter-spacing: -0.1px;
+      box-shadow: 0 3px 14px rgba(201,92,24,0.32), inset 0 1px 0 rgba(255,255,255,0.18);
+      transition: transform 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out), opacity 0.18s;
+    }
+    .btn-demo:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 24px rgba(201,92,24,0.38), inset 0 1px 0 rgba(255,255,255,0.18);
+      opacity: 0.95;
+    }
+    .btn-demo:active { transform: translateY(0); }
+    .btn-arrow { font-size: 13px; transition: transform 0.18s; }
+    .btn-demo:hover .btn-arrow { transform: translateX(2px); }
+
+    /* ============================================================
+       SECTION BASE
+       ============================================================ */
+    .section {
+      position: relative;
+      min-height: 100vh;
+      padding-top: var(--header-h);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .section-01 { background: var(--bg); }
+
+    .section-02 {
+      background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+      border-top: 1px solid rgba(205,186,159,0.4);
+    }
+
+    .section-03 {
+      background: var(--panel);
+      border-top: 1px solid rgba(205,186,159,0.4);
+    }
+
+    .section-inner {
+      width: 100%;
+      max-width: var(--max-w);
+      padding: 60px 56px;
+    }
+
+    /* Section badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px; height: 30px;
+      background: var(--orange);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px var(--orange-glow);
+    }
+
+    /* Headings */
+    .section-h1 {
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.28;
+      margin-bottom: 14px;
+      word-break: keep-all;
+      letter-spacing: -0.7px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-sub);
+      line-height: 1.8;
+      margin-bottom: 44px;
+      word-break: keep-all;
+      max-width: 600px;
+    }
+
+    /* ============================================================
+       SHARED — FLOW NODES
+       ============================================================ */
+    .flow-row {
+      display: flex;
+      align-items: stretch;
+    }
+
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 4px;
+      padding: 0 16px;
+      flex-shrink: 0;
+    }
+
+    .flow-arrow-icon {
+      font-size: 28px;
+      color: var(--orange);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .flow-arrow-dot {
+      width: 5px; height: 5px;
+      background: var(--orange);
+      border-radius: 50%;
+      opacity: 0.35;
+    }
+
+    .node {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 14px;
+      text-align: center;
+      flex: 1;
+      min-width: 120px;
+      box-shadow: var(--shadow-sm);
+      transition:
+        transform 0.22s var(--ease-out),
+        box-shadow 0.22s var(--ease-out),
+        border-color 0.22s,
+        background 0.22s;
+      cursor: default;
+    }
+    .node:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--border-hover);
+      background: var(--card-hover);
+    }
+
+    .node.active {
+      background: var(--orange-light);
+      border: 2px solid var(--orange);
+      box-shadow: 0 4px 20px var(--orange-glow), var(--shadow-sm);
+    }
+    .node.active:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 36px var(--orange-glow), var(--shadow-hover);
+    }
+
+    .node-icon {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .node-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 5px;
+      word-break: keep-all;
+      line-height: 1.35;
+    }
+    .node.active .node-label { color: var(--orange); }
+
+    .node-desc {
+      font-size: 11px;
+      color: var(--text-sub);
+      line-height: 1.55;
+      word-break: keep-all;
+    }
+
+    /* Hero flow — badge pill style below video box */
+    .hero-badge-row {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 16px 10px;
+      border-radius: 50px;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.18s var(--ease-out), box-shadow 0.18s, border-color 0.18s;
+      white-space: nowrap;
+    }
+    .hero-badge:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--orange);
+    }
+    .hero-badge.active {
+      background: var(--orange-light);
+      border-color: var(--orange);
+      border-width: 2px;
+      color: var(--orange);
+      box-shadow: 0 4px 18px var(--orange-glow);
+    }
+    .hero-badge-icon {
+      font-size: 20px;
+      line-height: 1;
+    }
+    .hero-badge-arrow {
+      flex-shrink: 0;
+      color: var(--border);
+      font-size: 18px;
+      font-weight: 400;
+      padding: 0 6px;
+    }
+
+    /* SVG mic icon wrapper */
+    .mic-icon-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+    }
+
+    /* Chip tags */
+    .chip-row {
+      display: flex;
+      gap: 3px;
+      justify-content: center;
+      margin-top: 7px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      padding: 2px 7px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    .chip-a { background: #E3F0FF; color: #2A6ACC; }
+    .chip-b { background: #FFF5D6; color: #8A6400; }
+    .chip-c { background: #FFE8E6; color: #C44736; }
+
+    /* ============================================================
+       WAVEFORM ANIMATION
+       ============================================================ */
+    .waveform {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .wbar {
+      width: 3px;
+      background: var(--orange);
+      border-radius: 2px;
+      animation: wwave 1.2s ease-in-out infinite;
+    }
+    .wbar:nth-child(1){ height:8px;  animation-delay:0s; }
+    .wbar:nth-child(2){ height:16px; animation-delay:.14s; }
+    .wbar:nth-child(3){ height:26px; animation-delay:.28s; }
+    .wbar:nth-child(4){ height:18px; animation-delay:.42s; }
+    .wbar:nth-child(5){ height:10px; animation-delay:.56s; }
+    .wbar:nth-child(6){ height:22px; animation-delay:.10s; }
+    .wbar:nth-child(7){ height:14px; animation-delay:.24s; }
+    .wbar:nth-child(8){ height:20px; animation-delay:.38s; }
+
+    @keyframes wwave {
+      0%, 100% { transform: scaleY(1); opacity: 0.6; }
+      50%       { transform: scaleY(1.75); opacity: 1; }
+    }
+
+    /* ============================================================
+       SECTION 01 — HERO VIDEO BOX  (Premium Frame)
+       ============================================================ */
+    .video-frame-outer {
+      width: 100%;
+      max-width: 880px;
+      margin: 0 auto 36px;
+      border-radius: 26px;
+      padding: 6px;
+      background: linear-gradient(135deg, #E4D4BC 0%, #C8B49A 50%, #D8C4A8 100%);
+      box-shadow:
+        0 0 0 1px rgba(205,186,159,0.6),
+        0 8px 32px rgba(80,55,30,0.14),
+        0 2px 8px rgba(80,55,30,0.08);
+    }
+
+    .video-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background:
+        radial-gradient(ellipse at 30% 60%, rgba(232,217,192,0.9) 0%, transparent 60%),
+        linear-gradient(145deg, #E8D9C2 0%, #D2C0A4 40%, #C4B098 100%);
+      border-radius: 22px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+
+    .video-bg-scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 100px;
+      opacity: 0.07;
+      pointer-events: none;
+      filter: grayscale(1);
+    }
+
+    /* Thumbnail image — fills video box, sits below overlay UI elements */
+    .thumb-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+      z-index: 1;
+    }
+
+    /* Inner vignette */
+    .video-box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 50%, rgba(140,110,70,0.15) 100%);
+      pointer-events: none;
+      border-radius: inherit;
+      z-index: 2;
+    }
+
+    .video-label-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(252,248,240,0.92);
+      border: 1px solid rgba(205,186,159,0.6);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, #E07830, #C95C18);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 30px;
+      z-index: 2;
+      box-shadow:
+        0 0 0 8px rgba(216,106,35,0.14),
+        0 8px 32px rgba(201,92,24,0.40);
+      transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
+    }
+    .play-btn:hover {
+      transform: translate(-50%, -50%) scale(1.10);
+      box-shadow:
+        0 0 0 12px rgba(216,106,35,0.16),
+        0 12px 40px rgba(201,92,24,0.48);
+    }
+
+    .play-icon {
+      margin-left: 4px;
+      font-style: normal;
+    }
+
+    .video-bottom-bar {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 16px 20px 14px;
+      background: linear-gradient(to top, rgba(220,200,170,0.85) 0%, transparent 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 2;
+    }
+
+    .video-saving-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-sub);
+      letter-spacing: -0.1px;
+    }
+
+    /* ============================================================
+       SECTION 02 — DEMO FLOW
+       ============================================================ */
+    .demo-frame-outer {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto 28px;
+      border-radius: 22px;
+      padding: 5px;
+      background: linear-gradient(135deg, #DCCDB6 0%, #BEA98C 50%, #CDBBA0 100%);
+      box-shadow:
+        0 0 0 1px rgba(205,186,159,0.5),
+        0 6px 28px rgba(80,55,30,0.12),
+        0 2px 6px rgba(80,55,30,0.07);
+    }
+
+    .demo-video-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background:
+        radial-gradient(ellipse at 70% 40%, rgba(224,208,184,0.85) 0%, transparent 55%),
+        linear-gradient(145deg, #E0CEBC 0%, #CCBA9E 45%, #BEAB8C 100%);
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.28);
+    }
+
+    .demo-video-box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 50%, rgba(130,100,60,0.12) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .demo-label-tag {
+      position: absolute;
+      top: 14px; left: 14px;
+      background: rgba(252,248,240,0.9);
+      border: 1px solid rgba(205,186,159,0.55);
+      padding: 4px 13px;
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.06em;
+      z-index: 2;
+      backdrop-filter: blur(4px);
+    }
+
+    .demo-play-btn {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, #E07830, #C95C18);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 24px;
+      z-index: 2;
+      box-shadow:
+        0 0 0 6px rgba(216,106,35,0.14),
+        0 6px 24px rgba(201,92,24,0.38);
+      transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
+    }
+    .demo-play-btn:hover {
+      transform: translate(-50%, -50%) scale(1.09);
+      box-shadow:
+        0 0 0 10px rgba(216,106,35,0.15),
+        0 10px 32px rgba(201,92,24,0.44);
+    }
+
+    .demo-waveform {
+      position: absolute;
+      bottom: 14px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    /* ============================================================
+       SECTION 02 — STEP INDICATOR
+       ============================================================ */
+    .step-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+      padding: 10px 16px;
+      background: rgba(251,246,238,0.7);
+      border: 1px solid rgba(205,186,159,0.45);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-sub);
+      transition: all 0.2s;
+    }
+
+    .step-item.on {
+      background: var(--orange-light);
+      border: 1.5px solid var(--orange);
+      color: var(--orange);
+      font-weight: 700;
+      box-shadow: 0 2px 10px var(--orange-glow);
+    }
+
+    .step-sep {
+      color: var(--border);
+      font-size: 13px;
+      padding: 0 2px;
+    }
+
+    .core-msg {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--orange);
+      padding: 10px 0 4px;
+      word-break: keep-all;
+      letter-spacing: -0.2px;
+    }
+
+    /* ============================================================
+       SECTION 03 — ORG TREE CHART
+       ============================================================ */
+
+    /* Top-down org chart container */
+    .org-tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    /* Vertical trunk from founder down */
+    .org-trunk {
+      width: 2px;
+      height: 36px;
+      background: var(--border);
+    }
+
+    /* Row holding 4 agent branches */
+    .org-branches {
+      display: flex;
+      width: 100%;
+    }
+
+    /* Each agent slot: has its own vertical stem + horizontal bar segment */
+    .org-agent-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 8px 0;
+      position: relative;
+    }
+
+    /* Vertical stem above each agent card */
+    .org-agent-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 36px;
+      background: var(--border);
+      transform: translateX(-50%);
+    }
+
+    /* Horizontal bar: each agent contributes its half of the bar */
+    .org-agent-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      height: 2px;
+      background: var(--border);
+    }
+    .org-agent-wrap:first-child::after { left: 50%; right: 0; }
+    .org-agent-wrap:last-child::after  { left: 0;   right: 50%; }
+    .org-agent-wrap:not(:first-child):not(:last-child)::after { left: 0; right: 0; }
+
+    /* Founder card — centered top node */
+    .founder-card {
+      background: var(--card);
+      border: 1.5px solid var(--brown);
+      border-radius: 18px;
+      padding: 28px 36px;
+      width: 210px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.22s var(--ease-out), box-shadow 0.22s;
+    }
+    .founder-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .founder-avatar {
+      width: 140px; height: 160px;
+      margin: 0 auto 16px;
+      overflow: visible;
+    }
+    .founder-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: bottom center;
+    }
+
+    .founder-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    .founder-role {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    /* Agent cards */
+    .agent-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 10px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition:
+        transform 0.22s var(--ease-out),
+        box-shadow 0.22s,
+        border-color 0.22s,
+        background 0.22s;
+    }
+    .agent-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--orange);
+      background: var(--card-hover);
+    }
+
+    .agent-avatar {
+      width: 130px; height: 130px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .agent-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .agent-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      word-break: keep-all;
+      line-height: 1.4;
+    }
+
+    .agent-desc {
+      font-size: 11px;
+      color: var(--text-sub);
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+
+    /* ============================================================
+       SECTION 03 — VALUE BADGES
+       ============================================================ */
+    .values-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .value-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 28px;
+      text-align: center;
+      flex: 1;
+      max-width: 240px;
+      box-shadow: var(--shadow-sm);
+      transition:
+        transform 0.22s var(--ease-out),
+        box-shadow 0.22s,
+        border-color 0.22s;
+    }
+    .value-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--orange);
+    }
+
+    .value-icon {
+      font-size: 26px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .value-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .value-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      word-break: keep-all;
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      position: relative;
+      z-index: 1;
+      background: var(--bg-alt);
+      border-top: 1px solid rgba(205,186,159,0.5);
+      text-align: center;
+      padding: 44px 56px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .footer-logo img {
+      height: 70px;
+      width: auto;
+      opacity: 0.8;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 900px) {
+      header { padding: 0 24px; }
+      .section-inner { padding: 44px 24px; }
+      .section-h1 { font-size: 30px; }
+      .section-sub { font-size: 15px; }
+      /* Org tree: 2x2 grid on tablet */
+      .org-branches { flex-wrap: wrap; }
+      .org-agent-wrap { flex: 0 0 calc(50% - 0px); padding: 20px 8px 0; }
+      .org-agent-wrap::before, .org-agent-wrap::after { display: none; }
+      .org-trunk { display: none; }
+      .values-row { flex-wrap: wrap; }
+      .value-card { max-width: 100%; }
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 0 16px; }
+      .logo-img { height: 30px; }
+      .section-inner { padding: 36px 16px; }
+      .section-h1 { font-size: 24px; }
+      .flow-row { flex-wrap: wrap; justify-content: center; gap: 8px; }
+      .flow-arrow { display: none; }
+      .node { min-width: 100px; }
+      .step-item { font-size: 11px; padding: 6px 8px; }
+      /* Org tree: single column on mobile */
+      .org-agent-wrap { flex: 0 0 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER — Premium Sticky Navigation
+     ============================================================ -->
+<header id="main-header">
+  <a class="logo-link" href="#section-01">
+    <img class="logo-img" src="public/logo.png" alt="VoiceGuard">
+  </a>
+  <button class="btn-demo" onclick="document.getElementById('section-02').scrollIntoView({behavior:'smooth'})">
+    30초 데모 보기 <span class="btn-arrow">▶</span>
+  </button>
+</header>
+
+
+<!-- ============================================================
+     SECTION 01 — HERO
+     ============================================================ -->
+<section class="section section-01" id="section-01">
+  <div class="section-inner">
+
+    <div class="badge">01</div>
+    <h1 class="section-h1">돌봄 현장의 말이<br>운영 증거가 됩니다</h1>
+    <p class="section-sub">요양보호사의 현장 발화를 구조화해 증거 원장과 운영 대시보드로 연결합니다.</p>
+
+    <!-- Premium Video Box -->
+    <div style="max-width:880px; margin:0 auto; text-align:center;">
+      <div class="video-label-tag">🎬 50초 데모 영상</div>
+    </div>
+    <div class="video-frame-outer">
+      <div class="video-box" id="hero-video">
+        <img class="thumb-img" src="public/hero_image.png" alt="VoiceGuard 히어로 데모">
+        <div class="play-btn" role="button" aria-label="데모 영상 재생">
+          <i class="play-icon">▶</i>
+        </div>
+        <div class="video-bottom-bar">
+          <span class="video-saving-text">🎙 말하면, 먼저 증거 원장에 저장됩니다</span>
+          <div class="waveform">
+            <div class="wbar"></div>
+            <div class="wbar"></div>
+            <div class="wbar"></div>
+            <div class="wbar"></div>
+            <div class="wbar"></div>
+            <div class="wbar"></div>
+            <div class="wbar"></div>
+            <div class="wbar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4-Badge Flow — hero section, compact pill badges below video box -->
+    <div class="hero-badge-row" id="hero-flow">
+      <div class="hero-badge">
+        <span class="hero-badge-icon">🎙</span>
+        현장 발화
+      </div>
+      <span class="hero-badge-arrow">→</span>
+      <div class="hero-badge active">
+        <span class="hero-badge-icon">🛡</span>
+        증거 원장
+      </div>
+      <span class="hero-badge-arrow">→</span>
+      <div class="hero-badge">
+        <span class="hero-badge-icon">⚙️</span>
+        AI 구조화
+      </div>
+      <span class="hero-badge-arrow">→</span>
+      <div class="hero-badge">
+        <span class="hero-badge-icon">📋</span>
+        운영 조치
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 02 — DEMO FLOW
+     ============================================================ -->
+<section class="section section-02" id="section-02">
+  <div class="section-inner">
+
+    <div class="badge">02</div>
+    <h1 class="section-h1">말하면, 먼저<br>증거 원장에 저장됩니다</h1>
+    <p class="section-sub" style="max-width:none; white-space:nowrap;">원본은 먼저 증거 원장에 저장되고, AI 구조화 후 담당자 확인을 거쳐 운영 조치로 이어집니다.</p>
+
+    <!-- Demo Video Box -->
+    <div style="max-width:760px; margin:0 auto; text-align:center;">
+      <div class="video-label-tag">📹 현장 실제 운영 데모</div>
+    </div>
+    <div class="demo-frame-outer">
+      <div class="demo-video-box" id="demo-video">
+        <img class="thumb-img" src="public/2번%20thumbnail.png" alt="VoiceGuard 현장 데모">
+        <div class="demo-play-btn" role="button" aria-label="데모 재생">▶</div>
+        <div class="demo-waveform">
+          <div class="waveform">
+            <div class="wbar"></div>
+            <div class="wbar"></div>
+            <div class="wbar"></div>
+            <div class="wbar"></div>
+            <div class="wbar"></div>
+            <div class="wbar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4-Node Horizontal Flow -->
+    <div class="flow-row" style="margin-bottom:24px;">
+
+      <div class="node">
+        <div class="mic-icon-wrap">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Capsule body -->
+            <rect x="13" y="2" width="16" height="24" rx="8" fill="#FDEBD8" stroke="#D86A23" stroke-width="1.8"/>
+            <!-- Grille detail — gives mic screen realism -->
+            <rect x="16.5" y="6" width="9" height="13" rx="4.5" fill="none" stroke="#D86A23" stroke-width="1.1" opacity="0.45"/>
+            <!-- Stand arc -->
+            <path d="M7 21C7 30.389 13.492 38 21 38C28.508 38 35 30.389 35 21" stroke="#D86A23" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <!-- Pole -->
+            <line x1="21" y1="38" x2="21" y2="41" stroke="#D86A23" stroke-width="2" stroke-linecap="round"/>
+            <!-- Base -->
+            <line x1="14" y1="41" x2="28" y2="41" stroke="#D86A23" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="node-label">현장 발화</div>
+        <div class="node-desc">말하면 시작<br>현장 상황을 즉시 남김</div>
+      </div>
+
+      <div class="flow-arrow">
+        <span class="flow-arrow-icon">→</span>
+        <span class="flow-arrow-dot"></span>
+      </div>
+
+      <div class="node active">
+        <div class="mic-icon-wrap">
+          <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Shield outer -->
+            <path d="M21 3L5 9.5V20C5 29.4 12.2 37.8 21 39.5C29.8 37.8 37 29.4 37 20V9.5L21 3Z" fill="#FDEBD8" stroke="#D86A23" stroke-width="1.8" stroke-linejoin="round"/>
+            <!-- Lock body -->
+            <rect x="14.5" y="21" width="13" height="10" rx="2.5" fill="none" stroke="#D86A23" stroke-width="1.6"/>
+            <!-- Lock shackle -->
+            <path d="M16.5 21V18C16.5 14.686 18.5 12 21 12C23.5 12 25.5 14.686 25.5 18V21" stroke="#D86A23" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+            <!-- Lock keyhole dot -->
+            <circle cx="21" cy="26" r="1.8" fill="#D86A23"/>
+          </svg>
+        </div>
+        <div class="node-label">증거 원장 선저장</div>
+        <div class="node-desc">원본 먼저 저장<br>저장 시각·기록 ID·해시 보관</div>
+      </div>
+
+      <div class="flow-arrow">
+        <span class="flow-arrow-icon">→</span>
+        <span class="flow-arrow-dot"></span>
+      </div>
+
+      <div class="node">
+        <span class="node-icon">⚙️</span>
+        <div class="node-label">AI 구조화</div>
+        <div class="node-desc">원본은 바꾸지 않고<br>운영용으로 정리</div>
+        <div class="chip-row">
+          <span class="chip chip-a">급여</span>
+          <span class="chip chip-b">특이</span>
+          <span class="chip chip-c">위험</span>
+        </div>
+      </div>
+
+      <div class="flow-arrow">
+        <span class="flow-arrow-icon">→</span>
+        <span class="flow-arrow-dot"></span>
+      </div>
+
+      <div class="node">
+        <span class="node-icon">📋</span>
+        <div class="node-label">운영 조치</div>
+        <div class="node-desc">누락 감지·인수인계<br>담당자 확인 후 반영</div>
+      </div>
+
+    </div>
+
+    <!-- Step Indicator -->
+    <div class="step-bar">
+      <div class="step-item">🎙 현장 발화</div>
+      <span class="step-sep">→</span>
+      <div class="step-item on">🛡 증거 원장</div>
+      <span class="step-sep">→</span>
+      <div class="step-item">⚙️ AI 구조화</div>
+      <span class="step-sep">→</span>
+      <div class="step-item">📋 운영 조치</div>
+    </div>
+
+    <div class="core-msg">
+      ⭐ &nbsp;핵심: 말하면, 먼저 증거가 됩니다. 그리고 운영이 됩니다.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 03 — TEAM SYSTEM
+     ============================================================ -->
+<section class="section section-03" id="section-03">
+  <div class="section-inner">
+
+    <div class="badge">03</div>
+    <h1 class="section-h1">사람은 한 명,<br>실행은 팀 단위입니다</h1>
+    <p class="section-sub" style="max-width:none; white-space:nowrap;">대표는 방향과 최종 승인을 맡고, 역할별 AI 에이전트가 리서치·기획·제작·검수를 분담합니다.</p>
+
+    <!-- ORG TREE: 창업자 → 4 AI 에이전트 -->
+    <div class="org-tree">
+
+      <div class="founder-card">
+        <div class="founder-avatar">
+          <img src="public/대표.png" alt="창업자">
+        </div>
+        <div class="founder-title">창업자</div>
+        <div class="founder-role">최종 결정·승인</div>
+      </div>
+
+      <div class="org-trunk"></div>
+
+      <div class="org-branches">
+
+        <div class="org-agent-wrap">
+          <div class="agent-card">
+            <div class="agent-avatar">
+              <img src="public/전략기획%20에이전트.png" alt="전략기획 에이전트">
+            </div>
+            <div class="agent-name">전략기획<br>실장 에이전트</div>
+            <div class="agent-desc">우선순위 정리<br>핵심 메시지 설계</div>
+          </div>
+        </div>
+
+        <div class="org-agent-wrap">
+          <div class="agent-card">
+            <div class="agent-avatar">
+              <img src="public/리서치%20에이전트.png" alt="리서치분석 에이전트">
+            </div>
+            <div class="agent-name">리서치<br>분석 에이전트</div>
+            <div class="agent-desc">시장·경쟁<br>현황 조사</div>
+          </div>
+        </div>
+
+        <div class="org-agent-wrap">
+          <div class="agent-card">
+            <div class="agent-avatar">
+              <img src="public/제작운영%20에이전트.png" alt="제작운영 에이전트">
+            </div>
+            <div class="agent-name">제작운영<br>에이전트</div>
+            <div class="agent-desc">랜딩·데모<br>콘텐츠 제작</div>
+          </div>
+        </div>
+
+        <div class="org-agent-wrap">
+          <div class="agent-card">
+            <div class="agent-avatar">
+              <img src="public/검수%20에이전트.png" alt="검수관리 에이전트">
+            </div>
+            <div class="agent-name">검수관리<br>에이전트</div>
+            <div class="agent-desc">오류 검수<br>품질 체크</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Value Badges -->
+    <div class="values-row">
+      <div class="value-card">
+        <span class="value-icon">⚡</span>
+        <div class="value-title">빠른 판단</div>
+        <div class="value-desc">AI로 실행하는 작은 인텔리전스</div>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">⚙</span>
+        <div class="value-title">병렬 실행</div>
+        <div class="value-desc">서로 역할을 나눠 진행합니다</div>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">✓</span>
+        <div class="value-title">승인 통제</div>
+        <div class="value-desc">주요 실행은 항상 확인합니다</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="public/logo.png" alt="VoiceGuard">
+  </div>
+  <p class="footer-tagline">
+    AI CareOps 운영·증빙 플랫폼<br>
+    현장의 말을 기관이 운영하고 소명할 수 있는 데이터로 바꿉니다.
+  </p>
+</footer>
+
+
+<script>
+  // Header scroll shadow enhancement
+  const hdr = document.getElementById('main-header');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('scrolled', window.scrollY > 16);
+  }, { passive: true });
+
+  // Smooth anchor scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // Play button toggle (demo)
+  document.querySelectorAll('.play-btn, .demo-play-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const playing = btn.dataset.playing === '1';
+      btn.dataset.playing = playing ? '0' : '1';
+      btn.querySelector('i, span, .play-icon') && null;
+      btn.textContent = playing ? '▶' : '⏸';
+      if (!playing) setTimeout(() => { btn.textContent = '▶'; btn.dataset.playing = '0'; }, 4000);
+    });
+  });
+</script>
+
+</body>
+</html>
