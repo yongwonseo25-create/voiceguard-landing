@@ -323,8 +323,10 @@
       box-shadow: 0 4px 18px var(--orange-glow);
     }
     .hero-badge-icon {
-      font-size: 20px;
-      line-height: 1;
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      flex-shrink: 0;
     }
     .hero-badge-arrow {
       flex-shrink: 0;
@@ -340,6 +342,15 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 12px;
+    }
+
+    /* Flow node image icon */
+    .node-img-icon {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 10px;
     }
 
     /* Chip tags */
@@ -968,22 +979,22 @@
     <!-- 4-Badge Flow — hero section, compact pill badges below video box -->
     <div class="hero-badge-row" id="hero-flow">
       <div class="hero-badge">
-        <span class="hero-badge-icon">🎙</span>
+        <img class="hero-badge-icon" src="public/현장발화.png" alt="현장 발화">
         현장 발화
       </div>
       <span class="hero-badge-arrow">→</span>
       <div class="hero-badge active">
-        <span class="hero-badge-icon">🛡</span>
+        <img class="hero-badge-icon" src="public/중거원장.png" alt="증거 원장">
         증거 원장
       </div>
       <span class="hero-badge-arrow">→</span>
       <div class="hero-badge">
-        <span class="hero-badge-icon">⚙️</span>
+        <img class="hero-badge-icon" src="public/AI%20구조화.png" alt="AI 구조화">
         AI 구조화
       </div>
       <span class="hero-badge-arrow">→</span>
       <div class="hero-badge">
-        <span class="hero-badge-icon">📋</span>
+        <img class="hero-badge-icon" src="public/운영조치.png" alt="운영 조치">
         운영 조치
       </div>
     </div>
@@ -1027,20 +1038,7 @@
     <div class="flow-row" style="margin-bottom:24px;">
 
       <div class="node">
-        <div class="mic-icon-wrap">
-          <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Capsule body -->
-            <rect x="13" y="2" width="16" height="24" rx="8" fill="#FDEBD8" stroke="#D86A23" stroke-width="1.8"/>
-            <!-- Grille detail — gives mic screen realism -->
-            <rect x="16.5" y="6" width="9" height="13" rx="4.5" fill="none" stroke="#D86A23" stroke-width="1.1" opacity="0.45"/>
-            <!-- Stand arc -->
-            <path d="M7 21C7 30.389 13.492 38 21 38C28.508 38 35 30.389 35 21" stroke="#D86A23" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <!-- Pole -->
-            <line x1="21" y1="38" x2="21" y2="41" stroke="#D86A23" stroke-width="2" stroke-linecap="round"/>
-            <!-- Base -->
-            <line x1="14" y1="41" x2="28" y2="41" stroke="#D86A23" stroke-width="2.2" stroke-linecap="round"/>
-          </svg>
-        </div>
+        <img class="node-img-icon" src="public/현장발화.png" alt="현장 발화">
         <div class="node-label">현장 발화</div>
         <div class="node-desc">말하면 시작<br>현장 상황을 즉시 남김</div>
       </div>
@@ -1051,18 +1049,7 @@
       </div>
 
       <div class="node active">
-        <div class="mic-icon-wrap">
-          <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Shield outer -->
-            <path d="M21 3L5 9.5V20C5 29.4 12.2 37.8 21 39.5C29.8 37.8 37 29.4 37 20V9.5L21 3Z" fill="#FDEBD8" stroke="#D86A23" stroke-width="1.8" stroke-linejoin="round"/>
-            <!-- Lock body -->
-            <rect x="14.5" y="21" width="13" height="10" rx="2.5" fill="none" stroke="#D86A23" stroke-width="1.6"/>
-            <!-- Lock shackle -->
-            <path d="M16.5 21V18C16.5 14.686 18.5 12 21 12C23.5 12 25.5 14.686 25.5 18V21" stroke="#D86A23" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-            <!-- Lock keyhole dot -->
-            <circle cx="21" cy="26" r="1.8" fill="#D86A23"/>
-          </svg>
-        </div>
+        <img class="node-img-icon" src="public/중거원장.png" alt="증거 원장">
         <div class="node-label">증거 원장 선저장</div>
         <div class="node-desc">원본 먼저 저장<br>저장 시각·기록 ID·해시 보관</div>
       </div>
@@ -1073,7 +1060,7 @@
       </div>
 
       <div class="node">
-        <span class="node-icon">⚙️</span>
+        <img class="node-img-icon" src="public/AI%20구조화.png" alt="AI 구조화">
         <div class="node-label">AI 구조화</div>
         <div class="node-desc">원본은 바꾸지 않고<br>운영용으로 정리</div>
         <div class="chip-row">
@@ -1089,7 +1076,7 @@
       </div>
 
       <div class="node">
-        <span class="node-icon">📋</span>
+        <img class="node-img-icon" src="public/운영조치.png" alt="운영 조치">
         <div class="node-label">운영 조치</div>
         <div class="node-desc">누락 감지·인수인계<br>담당자 확인 후 반영</div>
       </div>
