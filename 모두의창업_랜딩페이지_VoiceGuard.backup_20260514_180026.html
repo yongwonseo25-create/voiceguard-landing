@@ -207,10 +207,6 @@
       max-width: 600px;
     }
 
-    .section-sub.wide {
-      max-width: 920px;
-    }
-
     /* ============================================================
        SHARED — FLOW NODES
        ============================================================ */
@@ -324,11 +320,7 @@
       color: var(--text);
       box-shadow: var(--shadow-xs);
       transition: transform 0.18s var(--ease-out), box-shadow 0.18s, border-color 0.18s;
-      white-space: normal;
-      min-height: 58px;
-      text-align: center;
-      word-break: keep-all;
-      overflow-wrap: break-word;
+      white-space: nowrap;
     }
     .hero-badge:hover {
       transform: translateY(-3px);
@@ -533,7 +525,10 @@
       z-index: 2;
     }
 
-    .badge-structure-text { display: inline-block; }
+    .badge-structure-text {
+      display: inline-block;
+      transform: translateX(-5px);
+    }
 
     /* ============================================================
        PROBLEM GRID — Section 01 하단
@@ -841,7 +836,7 @@
       border: 1.5px solid var(--brown);
       border-radius: 18px;
       padding: 28px 36px;
-      width: 260px;
+      width: 210px;
       text-align: center;
       box-shadow: var(--shadow-md);
       transition: transform 0.22s var(--ease-out), box-shadow 0.22s;
@@ -864,7 +859,7 @@
     }
 
     .founder-title {
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--text);
       margin-bottom: 5px;
@@ -886,7 +881,7 @@
       padding: 28px 16px 24px;
       width: 100%;
       height: 100%;
-      min-height: 360px;
+      min-height: 340px;
       text-align: center;
       box-shadow: var(--shadow-sm);
       display: flex;
@@ -922,21 +917,17 @@
     }
 
     .agent-name {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
       color: var(--text);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       word-break: keep-all;
       overflow-wrap: break-word;
       line-height: 1.45;
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .agent-desc {
-      font-size: 12.5px;
+      font-size: 12px;
       color: #4A3A2C;
       line-height: 1.7;
       word-break: keep-all;
@@ -958,9 +949,6 @@
       font-weight: 700;
       line-height: 1.3;
       word-break: keep-all;
-      overflow-wrap: break-word;
-      max-width: 100%;
-      text-align: center;
     }
 
     /* ============================================================
@@ -1113,6 +1101,7 @@
 
     .workflow-frame-outer::before {
       content: '';
+      will-change: transform;
       position: absolute;
       width: 170%;
       height: 170%;
@@ -1181,6 +1170,86 @@
       word-break: keep-all;
       line-height: 1.55;
     }
+
+    /* ============================================================
+       TABLET — Hero badge & workflow title 보정 (601–860px)
+       ============================================================ */
+    @media (max-width: 860px) {
+      .hero-badge { font-size: 12px; padding: 8px 6px; gap: 5px; }
+      .hero-badge-icon { width: 28px; height: 28px; }
+      .workflow-image-title { font-size: 26px; }
+      .workflow-caption { font-size: 16px; }
+    }
+
+    /* ============================================================
+       MOBILE — 종합 모바일 레이아웃 수정 (≤600px)
+       ============================================================ */
+    @media (max-width: 600px) {
+      /* 헤더 높이 축소 */
+      :root { --header-h: 64px; }
+      header { height: 64px; }
+
+      /* 히어로 배지 4개 → 2×2 그리드 */
+      .hero-badge-row {
+        flex-wrap: wrap;
+        gap: 8px;
+        max-width: 100%;
+      }
+      .hero-badge-arrow { display: none; }
+      .hero-badge {
+        flex: 0 0 calc(50% - 4px);
+        white-space: normal;
+        font-size: 12px;
+        padding: 8px 6px;
+        gap: 5px;
+        justify-content: center;
+        text-align: center;
+      }
+      .hero-badge-icon { width: 26px; height: 26px; }
+
+      /* 워크플로우 섹션 */
+      .workflow-image-title { font-size: 20px; margin-top: 20px; margin-bottom: 14px; }
+      .workflow-caption { font-size: 13px; padding: 10px 12px; }
+
+      /* values-row: 1컬럼 */
+      .values-row { flex-direction: column; gap: 10px; }
+      .value-card { max-width: 100%; }
+
+      /* 조직도 카드 */
+      .agent-card { min-height: auto; padding: 20px 14px; }
+      .agent-avatar { width: 90px; height: 90px; }
+      .founder-card { width: 160px; padding: 18px 20px; }
+      .founder-avatar { width: 100px; height: 115px; }
+
+      /* 텍스트 크기 */
+      .section-sub { font-size: 14px; margin-bottom: 28px; }
+      .video-label-tag { font-size: 15px; padding: 7px 16px; }
+
+      /* 푸터 */
+      footer { padding: 32px 16px; }
+      .footer-logo img { height: 54px; }
+      .footer-tagline { font-size: 12px; }
+
+      /* 모바일 GPU 과부하 애니메이션 비활성화 */
+      .workflow-frame-outer::before { animation: none; }
+      .wbar { animation-duration: 1.8s; }
+    }
+
+    /* 네이티브 비디오 오버레이 플레이 버튼 숨김 (iOS Safari / Android Chrome) */
+    video::-webkit-media-controls-start-playback-button,
+    video::-webkit-media-controls-overlay-play-button {
+      display: none !important;
+      -webkit-appearance: none !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    /* 초소형 화면 (≤380px) */
+    @media (max-width: 380px) {
+      .section-h1 { font-size: 20px; }
+      .hero-badge { font-size: 11px; gap: 4px; }
+      .hero-badge-icon { width: 22px; height: 22px; }
+    }
   </style>
 </head>
 <body>
@@ -1190,7 +1259,7 @@
      ============================================================ -->
 <header id="main-header">
   <a class="logo-link" href="#section-01">
-    <img class="logo-img" src="public/logo.png" alt="VoiceGuard">
+    <img class="logo-img" src="public/logo.png" alt="VoiceGuard" decoding="async">
   </a>
   <button class="btn-demo" onclick="document.getElementById('section-02').scrollIntoView({behavior:'smooth'})">
     운영 흐름 보기 <span class="btn-arrow">▶</span>
@@ -1206,7 +1275,7 @@
 
     <div class="badge">01</div>
     <h1 class="section-h1">돌봄 현장의 말이<br>운영 증거가 됩니다</h1>
-    <p class="section-sub wide">VoiceGuard는 장기요양기관과 통합돌봄 현장에서 말로 남긴 내용을 원본 기록으로 먼저 보존하고,<br>담당자가 바로 확인할 수 있는 누락 감지·인수인계·조사 대응 데이터로 정리합니다.</p>
+    <p class="section-sub">VoiceGuard는 장기요양기관과 통합돌봄 현장의 발화를 원본 그대로 보존하고,<br>AI 에이전트가 누락 감지·인수인계·조사 대응에 필요한 운영 데이터로 구조화합니다.</p>
 
     <!-- Premium Video Box -->
     <div style="max-width:880px; margin:0 auto; text-align:center;">
@@ -1217,7 +1286,6 @@
         <video class="hero-demo-video"
                src="public/보이스 가드 데모영상.mp4"
                poster="public/hero_image.png"
-               controls
                preload="metadata"
                playsinline>
         </video>
@@ -1230,22 +1298,22 @@
     <!-- 4-Badge Flow — hero section, compact pill badges below video box -->
     <div class="hero-badge-row" id="hero-flow">
       <div class="hero-badge">
-        <img class="hero-badge-icon" src="public/현장%20발화.png" alt="현장 발화">
+        <img class="hero-badge-icon" src="public/현장%20발화.png" alt="현장 발화" decoding="async">
         현장 발화
       </div>
       <span class="hero-badge-arrow">→</span>
       <div class="hero-badge active">
-        <img class="hero-badge-icon" src="public/중거원장.png" alt="증거 원장">
+        <img class="hero-badge-icon" src="public/중거원장.png" alt="증거 원장" decoding="async">
         증거 원장
       </div>
       <span class="hero-badge-arrow">→</span>
       <div class="hero-badge">
-        <img class="hero-badge-icon" src="public/AI구조화.png" alt="운영 항목 정리">
-        <span class="badge-structure-text">운영 항목 정리</span>
+        <img class="hero-badge-icon" src="public/AI구조화.png" alt="AI 에이전트 구조화" decoding="async">
+        <span class="badge-structure-text">AI 에이전트 구조화</span>
       </div>
       <span class="hero-badge-arrow">→</span>
       <div class="hero-badge">
-        <img class="hero-badge-icon" src="public/운영조치.png" alt="운영 조치">
+        <img class="hero-badge-icon" src="public/운영조치.png" alt="운영 조치" decoding="async">
         운영 조치
       </div>
     </div>
@@ -1253,8 +1321,8 @@
     <!-- 문제 카드 5개 -->
     <div class="problem-grid">
       <div class="problem-card">
-        <div class="problem-title">기록 리스크</div>
-        <div class="problem-desc">기록 누락과 사후 입력은 민원·평가·조사 때 기관의 설명 부담으로 이어집니다.</div>
+        <div class="problem-title">환수 리스크</div>
+        <div class="problem-desc">기록 누락, 사후 입력, 증빙 불일치가 조사 대응 부담으로 이어집니다.</div>
       </div>
       <div class="problem-card">
         <div class="problem-title">누락 기록</div>
@@ -1286,7 +1354,7 @@
 
     <div class="badge">02</div>
     <h1 class="section-h1">원본은 먼저 보존하고,<br>조치는 사람 확인 후 이어집니다</h1>
-    <p class="section-sub wide" style="max-width:none;">VoiceGuard는 현장 발화를 단순 전사하지 않습니다.<br>원본 음성·시각·작성자·수정 이력을 먼저 증거 원장에 남기고,<br>급여·특이사항·위험 신호·인수인계 항목으로 정리합니다.<br>담당자는 결과를 확인한 뒤 운영 대시보드의 조치 카드로 반영합니다.</p>
+    <p class="section-sub" style="max-width:none;">VoiceGuard는 현장 발화를 단순 전사하지 않습니다.<br>원본 음성·시각·작성자·수정 이력을 먼저 증거 원장에 남기고,<br>AI 에이전트가 급여·특이사항·위험 신호·인수인계 항목으로 구조화합니다.<br>담당자는 결과를 확인한 뒤 운영 대시보드의 조치 카드로 반영합니다.</p>
 
     <p class="workflow-image-title">VoiceGuard 운영 워크플로우</p>
 
@@ -1294,7 +1362,8 @@
       <div class="workflow-board">
         <img class="workflow-img"
              src="public/workflow_image.png"
-             alt="VoiceGuard 운영 워크플로우: 현장 발화, 원본 저장, AI 구조화, 사람 확인, 운영 조치 흐름">
+             alt="VoiceGuard 운영 워크플로우: 현장 발화, 원본 저장, AI 구조화, 사람 확인, 운영 조치 흐름"
+             loading="lazy" decoding="async">
       </div>
     </div>
 
@@ -1335,17 +1404,17 @@
   <div class="section-inner">
 
     <div class="badge">03</div>
-    <h1 class="section-h1">VoiceGuard는<br>현장 도입까지 책임지는 운영 조직으로 움직입니다</h1>
-    <p class="section-sub wide" style="max-width:none;">대표가 최종 책임을 지고, 서비스개발·현장도입·고객운영·품질검증 조직이 함께 움직입니다.<br>AI 실행팀은 조사와 구현 속도를 높이지만, 고객 데이터·외부 반영·제출물 확정은 사람이 승인합니다.</p>
+    <h1 class="section-h1">VoiceGuard는<br>4개 핵심 부서로 실행됩니다</h1>
+    <p class="section-sub" style="max-width:none;">VoiceGuard는 전략, 제품, 시장, 품질 검증이 하나의 흐름으로 움직입니다.<br>현장 발화를 운영 데이터로 바꾸고, 사람의 확인을 거쳐 실제 조치와 증빙으로 연결합니다.</p>
 
     <div class="org-tree">
 
       <div class="founder-card">
         <div class="founder-avatar">
-          <img src="public/ceo_image.png" alt="VoiceGuard 대표">
+          <img src="public/ceo_image.png" alt="VoiceGuard 대표" loading="lazy" decoding="async">
         </div>
-        <div class="founder-title">대표 / CEO</div>
-        <div class="founder-role">서비스 방향 · 고객 검증 · 외부 승인 · 최종 책임</div>
+        <div class="founder-title">VoiceGuard 대표</div>
+        <div class="founder-role">전략 방향 · 최종 의사결정 · 운영 책임</div>
       </div>
 
       <div class="org-trunk"></div>
@@ -1355,44 +1424,44 @@
         <div class="org-agent-wrap">
           <div class="agent-card">
             <div class="agent-avatar">
-              <img src="public/전략기획 에이전트.png" alt="서비스전략본부">
+              <img src="public/전략기획 에이전트.png" alt="전략기획실" loading="lazy" decoding="async">
             </div>
-            <div class="agent-name">서비스전략본부</div>
-            <div class="agent-desc">통합돌봄·장기요양 시장 변화에 맞춰<br>초기 고객, 가격 가설, 실행 우선순위를 설계합니다.</div>
-            <div class="agent-note">시장 전략 · 사업 기획 · 우선순위</div>
+            <div class="agent-name">전략기획실</div>
+            <div class="agent-desc">통합돌봄·장기요양 시장 변화에 맞춰<br>제품 방향과 실행 우선순위를 설계합니다.</div>
+            <div class="agent-note">시장 전략 · 사업 기획 · 실행 우선순위</div>
           </div>
         </div>
 
         <div class="org-agent-wrap">
           <div class="agent-card">
             <div class="agent-avatar">
-              <img src="public/리서치 에이전트.png" alt="서비스개발본부">
+              <img src="public/리서치 에이전트.png" alt="제품개발실" loading="lazy" decoding="async">
             </div>
-            <div class="agent-name">서비스개발본부</div>
-            <div class="agent-desc">현장 발화 입력, 증거 원장, 운영센터, 외부연동 후보 흐름을 실제 서비스로 구현합니다.</div>
-            <div class="agent-note">모바일 입력 · 증거 원장 · 운영센터</div>
+            <div class="agent-name">제품개발실</div>
+            <div class="agent-desc">현장 발화, 증거 원장, AI 구조화, 대시보드를<br>실제 작동하는 제품 흐름으로 구현합니다.</div>
+            <div class="agent-note">제품 설계 · 데이터 구조 · 대시보드 개발</div>
           </div>
         </div>
 
         <div class="org-agent-wrap">
           <div class="agent-card">
             <div class="agent-avatar">
-              <img src="public/제작운영 에이전트.png" alt="현장도입본부">
+              <img src="public/제작운영 에이전트.png" alt="세일즈마케팅실" loading="lazy" decoding="async">
             </div>
-            <div class="agent-name">현장도입본부</div>
-            <div class="agent-desc">요양보호사, 사회복지사, 시설장 사용 흐름을 실제 기관 파일럿으로 검증합니다.</div>
-            <div class="agent-note">기관 파일럿 · 사용자 교육 · 도입 피드백</div>
+            <div class="agent-name">세일즈마케팅실</div>
+            <div class="agent-desc">요양기관·시설장·지자체가 바로 이해할 수 있게<br>현장 문제와 도입 가치를 메시지로 전달합니다.</div>
+            <div class="agent-note">시장 설득 · 고객 발굴 · 도입 메시지</div>
           </div>
         </div>
 
         <div class="org-agent-wrap">
           <div class="agent-card">
             <div class="agent-avatar">
-              <img src="public/검수 에이전트.png" alt="품질검증본부">
+              <img src="public/검수 에이전트.png" alt="품질검증실" loading="lazy" decoding="async">
             </div>
-            <div class="agent-name">품질검증본부</div>
-            <div class="agent-desc">기록 누락, 승인 누락, 개인정보 리스크, 과장 표현을 점검합니다.</div>
-            <div class="agent-note">오류 검수 · 개인정보 점검 · 표현 검수</div>
+            <div class="agent-name">품질검증실</div>
+            <div class="agent-desc">기록 누락, 승인 누락, 데이터 불일치를 점검하고<br>현장 적용 전 오류와 과장을 차단합니다.</div>
+            <div class="agent-note">품질 검수 · 승인 통제 · 오류 차단</div>
           </div>
         </div>
 
@@ -1407,13 +1476,13 @@
       </div>
       <div class="value-card">
         <span class="value-icon">🛡</span>
-        <div class="value-title">조사 대응 기록 경로 정리</div>
-        <div class="value-desc">원본·시각·승인·수정 이력을 연결해 나중에 확인 가능한 기록 경로를 만듭니다.</div>
+        <div class="value-title">증거 원장으로 방어력 강화</div>
+        <div class="value-desc">원본·시각·승인·수정 이력을 남겨 조사 대응 근거를 정리합니다.</div>
       </div>
       <div class="value-card">
         <span class="value-icon">✓</span>
-        <div class="value-title">AI 보조 + 사람 승인</div>
-        <div class="value-desc">AI 실행팀은 정리를 돕고, 중요한 운영 조치는 사람이 확인 후 반영합니다.</div>
+        <div class="value-title">AI 에이전트 + 사람 승인</div>
+        <div class="value-desc">AI 에이전트가 정리하고, 중요한 운영 조치는 사람이 확인 후 반영합니다.</div>
       </div>
     </div>
 
@@ -1427,8 +1496,8 @@
     <img src="public/logo.png" alt="VoiceGuard">
   </div>
   <p class="footer-tagline">
-    장기요양 현장의 말을 운영 증거로 바꾸는 CareOps 플랫폼<br>
-    현장 발화, 증거 원장, 인수인계, 누락 감지, 조사 대응 기록 경로를 하나로 연결합니다.
+    AI 에이전트 기반 CareOps 운영·증빙 플랫폼<br>
+    현장의 말을 증거 원장, 인수인계, 누락 감지, 조사 대응 조치 데이터로 연결합니다.
   </p>
 </footer>
 
@@ -1455,6 +1524,7 @@
 
   if (heroVideo && heroPlayBtn) {
     heroPlayBtn.addEventListener('click', () => {
+      heroVideo.setAttribute('controls', '');
       heroVideo.play();
     });
 
@@ -1468,6 +1538,7 @@
 
     heroVideo.addEventListener('ended', () => {
       heroVideoBox.classList.remove('is-playing');
+      heroVideo.removeAttribute('controls');
       heroVideo.load();
     });
   }
