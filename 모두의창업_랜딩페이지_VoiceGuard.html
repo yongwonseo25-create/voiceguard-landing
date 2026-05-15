@@ -540,18 +540,18 @@
        ============================================================ */
     .problem-grid {
       width: 100%;
-      max-width: 980px;
+      max-width: 900px;
       margin: 34px auto 0;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
 
     .problem-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 18px 14px;
+      padding: 22px 20px;
       box-shadow: var(--shadow-sm);
       transition: transform 0.22s var(--ease-out), box-shadow 0.22s, border-color 0.22s;
     }
@@ -571,10 +571,11 @@
     }
 
     .problem-desc {
-      font-size: 12px;
+      font-size: 13px;
       color: #4A3A2C;
-      line-height: 1.7;
+      line-height: 1.75;
       word-break: keep-all;
+      overflow-wrap: break-word;
     }
 
     /* ============================================================
@@ -1062,7 +1063,7 @@
       .org-trunk { display: none; }
       .values-row { flex-wrap: wrap; }
       .value-card { max-width: 100%; }
-      .problem-grid { grid-template-columns: repeat(2, 1fr); }
+      .problem-grid { grid-template-columns: repeat(3, 1fr); }
       .evidence-strip { grid-template-columns: repeat(2, 1fr); }
     }
 
@@ -1206,7 +1207,7 @@
 
     <div class="badge">01</div>
     <h1 class="section-h1">돌봄 현장의 말이<br>운영 증거가 됩니다</h1>
-    <p class="section-sub wide">VoiceGuard는 장기요양기관과 통합돌봄 현장에서 말로 남긴 내용을 원본 기록으로 먼저 보존하고,<br>담당자가 바로 확인할 수 있는 누락 감지·인수인계·조사 대응 데이터로 정리합니다.</p>
+    <p class="section-sub wide">요양보호사가 현장에서 말하면 원본이 먼저 저장되고, AI가 기록·인수인계·조사 자료로 정리합니다.<br>전국 2만 8천 개 장기요양기관 — 요양보호사·관리자·원장 모두의 문제를 하나의 흐름으로 해결합니다.</p>
 
     <!-- Premium Video Box -->
     <div style="max-width:880px; margin:0 auto; text-align:center;">
@@ -1215,7 +1216,7 @@
     <div class="video-frame-outer">
       <div class="video-box" id="hero-video">
         <video class="hero-demo-video"
-               src="public/보이스 가드 데모영상.mp4"
+               src="public/voiceguard_demo_video.mp4"
                poster="public/hero_image.png"
                controls
                preload="metadata"
@@ -1250,27 +1251,19 @@
       </div>
     </div>
 
-    <!-- 문제 카드 5개 -->
+    <!-- 문제 카드 3개 — 요양보호사·관리자·원장 -->
     <div class="problem-grid">
       <div class="problem-card">
-        <div class="problem-title">기록 리스크</div>
-        <div class="problem-desc">기록 누락과 사후 입력은 민원·평가·조사 때 기관의 설명 부담으로 이어집니다.</div>
+        <div class="problem-title">요양보호사</div>
+        <div class="problem-desc">돌봄이 끝난 뒤 기억으로 기록을 씁니다. 전국 요양보호사의 66%가 60대 이상입니다. 바쁜 날엔 낙상 위험, 식사량 변화, 보호자 요청이 기록에서 빠집니다. 기억으로 쓴 기록엔 구멍이 생깁니다.</div>
       </div>
       <div class="problem-card">
-        <div class="problem-title">누락 기록</div>
-        <div class="problem-desc">현장 조치 후 기록이 늦거나 빠지면 담당자는 뒤늦게 확인해야 합니다.</div>
+        <div class="problem-title">관리자</div>
+        <div class="problem-desc">종이 메모, 카카오톡, 전산 — 같은 내용을 세 번 씁니다. 담당자가 바뀌면 인수인계 이력이 끊깁니다. 돌봄이 아니라 기록을 다시 쓰는 게 업무가 됩니다.</div>
       </div>
       <div class="problem-card">
-        <div class="problem-title">중복 입력</div>
-        <div class="problem-desc">급여기록, 인수인계, 보호자 공유, 내부 보고가 따로 작성됩니다.</div>
-      </div>
-      <div class="problem-card">
-        <div class="problem-title">인수인계 공백</div>
-        <div class="problem-desc">다음 근무자가 특이사항, 미완료 조치, 위험 신호를 한눈에 보기 어렵습니다.</div>
-      </div>
-      <div class="problem-card">
-        <div class="problem-title">조사 대응 부담</div>
-        <div class="problem-desc">원본·시각·승인·수정 이력이 연결되지 않으면 설명 가능한 자료가 부족해집니다.</div>
+        <div class="problem-title">원장</div>
+        <div class="problem-desc">민원이나 현지조사가 오면 자료를 찾을 수 없습니다. "3월 15일 낙상 위험 조치가 있었습니까?" — 수첩, 카톡, 전산을 뒤져도 없습니다. 아무리 잘 돌봤어도 기록이 없으면 설명할 수 없습니다.</div>
       </div>
     </div>
 
@@ -1286,7 +1279,7 @@
 
     <div class="badge">02</div>
     <h1 class="section-h1">원본은 먼저 보존하고,<br>조치는 사람 확인 후 이어집니다</h1>
-    <p class="section-sub wide" style="max-width:none;">VoiceGuard는 현장 발화를 단순 전사하지 않습니다.<br>원본 음성·시각·작성자·수정 이력을 먼저 증거 원장에 남기고,<br>급여·특이사항·위험 신호·인수인계 항목으로 정리합니다.<br>담당자는 결과를 확인한 뒤 운영 대시보드의 조치 카드로 반영합니다.</p>
+    <p class="section-sub wide" style="max-width:none;">병원 의사는 진료 중에 차트를 씁니다. 요양 현장에서는 돌봄이 끝난 뒤 기억으로 씁니다. VoiceGuard는 그 순간을 잡습니다.<br>현장에서 말하면 원본이 먼저 저장되고, AI가 기록·인수인계·조치 항목으로 정리합니다. 담당자는 결과를 확인한 뒤 운영 대시보드에 반영합니다.</p>
 
     <p class="workflow-image-title">VoiceGuard 운영 워크플로우</p>
 
@@ -1309,8 +1302,8 @@
       </div>
       <div class="evidence-card">
         <div class="evidence-kicker">현장 리스크</div>
-        <div class="evidence-title">부당청구·환수 부담</div>
-        <div class="evidence-desc">급여 제공 기록과 실제 조치 흐름이 맞지 않으면 기관은 조사 대응 부담을 안게 됩니다.</div>
+        <div class="evidence-title">연 666억 원 환수 부담</div>
+        <div class="evidence-desc">2023년 기준 요양기관 부당청구 환수액은 연 666억 원입니다. 기록이 약한 기관이 가장 먼저 당합니다. 아무리 잘 돌봤어도 기록이 없으면 설명할 수 없습니다.</div>
       </div>
       <div class="evidence-card">
         <div class="evidence-kicker">운영 문제</div>
@@ -1319,8 +1312,8 @@
       </div>
       <div class="evidence-card">
         <div class="evidence-kicker">차별화</div>
-        <div class="evidence-title">STT가 아닌 CareOps 증거 원장</div>
-        <div class="evidence-desc">텍스트 변환을 넘어 원본, 시각, 승인, 수정 이력, 후속 조치를 하나의 흐름으로 관리합니다.</div>
+        <div class="evidence-title">기존 전산을 대체하지 않습니다</div>
+        <div class="evidence-desc">그 전 단계에서 현장 발화를 잡는 보완형 서비스입니다. 원본·시각·승인·수정 이력과 후속 조치를 하나의 흐름으로 연결합니다.</div>
       </div>
     </div>
 
@@ -1335,8 +1328,8 @@
   <div class="section-inner">
 
     <div class="badge">03</div>
-    <h1 class="section-h1">VoiceGuard는<br>현장 도입까지 책임지는 운영 조직으로 움직입니다</h1>
-    <p class="section-sub wide" style="max-width:none;">대표가 최종 책임을 지고, 서비스개발·현장도입·고객운영·품질검증 조직이 함께 움직입니다.<br>AI 실행팀은 조사와 구현 속도를 높이지만, 고객 데이터·외부 반영·제출물 확정은 사람이 승인합니다.</p>
+    <h1 class="section-h1">1인 대표와 4개 AI 전문팀이 팀을 이룹니다.<br>역할은 명확히 나뉩니다.</h1>
+    <p class="section-sub wide" style="max-width:none;">고객 인터뷰·파일럿·최종 판단은 대표가 직접 합니다. 코드·조사·검증·초안은 전문 에이전트가 맡습니다.</p>
 
     <div class="org-tree">
 
@@ -1358,7 +1351,7 @@
               <img src="public/전략기획 에이전트.png" alt="서비스전략본부">
             </div>
             <div class="agent-name">서비스전략본부</div>
-            <div class="agent-desc">통합돌봄·장기요양 시장 변화에 맞춰<br>초기 고객, 가격 가설, 실행 우선순위를 설계합니다.</div>
+            <div class="agent-desc">어떤 기관이 먼저 쓸까, 얼마에 팔 수 있을까, 무엇부터 만들까. 사업 방향과 고객 가설을 설계합니다. 시장이 바뀌면 방향도 바로 바꿉니다.</div>
             <div class="agent-note">시장 전략 · 사업 기획 · 우선순위</div>
           </div>
         </div>
@@ -1369,7 +1362,7 @@
               <img src="public/리서치 에이전트.png" alt="서비스개발본부">
             </div>
             <div class="agent-name">서비스개발본부</div>
-            <div class="agent-desc">현장 발화 입력, 증거 원장, 운영센터, 외부연동 후보 흐름을 실제 서비스로 구현합니다.</div>
+            <div class="agent-desc">현장에서 말하면 저장되고, AI가 기록을 정리하고, 원장이 날짜별로 조회할 수 있는 흐름을 실제로 작동하게 만듭니다. 지금 내부 테스트 중입니다.</div>
             <div class="agent-note">모바일 입력 · 증거 원장 · 운영센터</div>
           </div>
         </div>
@@ -1380,7 +1373,7 @@
               <img src="public/제작운영 에이전트.png" alt="현장도입본부">
             </div>
             <div class="agent-name">현장도입본부</div>
-            <div class="agent-desc">요양보호사, 사회복지사, 시설장 사용 흐름을 실제 기관 파일럿으로 검증합니다.</div>
+            <div class="agent-desc">요양보호사, 관리자, 원장이 실제로 쓸 수 있는지 파일럿 기관에서 직접 확인합니다. 현장 피드백은 바로 다음 주 제품에 반영됩니다.</div>
             <div class="agent-note">기관 파일럿 · 사용자 교육 · 도입 피드백</div>
           </div>
         </div>
@@ -1391,7 +1384,7 @@
               <img src="public/검수 에이전트.png" alt="품질검증본부">
             </div>
             <div class="agent-name">품질검증본부</div>
-            <div class="agent-desc">기록 누락, 승인 누락, 개인정보 리스크, 과장 표현을 점검합니다.</div>
+            <div class="agent-desc">기록 누락, 과장된 표현, 개인정보 리스크를 점검합니다. 코드가 배포되기 전, 제출물이 나가기 전 — 반드시 사람이 확인합니다.</div>
             <div class="agent-note">오류 검수 · 개인정보 점검 · 표현 검수</div>
           </div>
         </div>
@@ -1402,18 +1395,18 @@
     <div class="values-row">
       <div class="value-card">
         <span class="value-icon">⚡</span>
-        <div class="value-title">현장 기록을 조치로 전환</div>
-        <div class="value-desc">말로 남긴 상황을 인수인계, 보완 요청, 담당자 확인으로 연결합니다.</div>
+        <div class="value-title">기능을 더 만들기 전에 쓸 이유를 먼저 찾습니다</div>
+        <div class="value-desc">한 기관이 매달 계속 쓸 이유가 있는지 확인하는 게 90일의 목표입니다.</div>
       </div>
       <div class="value-card">
         <span class="value-icon">🛡</span>
-        <div class="value-title">조사 대응 기록 경로 정리</div>
-        <div class="value-desc">원본·시각·승인·수정 이력을 연결해 나중에 확인 가능한 기록 경로를 만듭니다.</div>
+        <div class="value-title">조사 때 "기록 있습니까?"에 답할 수 있게</div>
+        <div class="value-desc">원본·시각·승인·수정 이력을 연결해서, 나중에 꺼낼 수 있는 기록 경로를 만듭니다.</div>
       </div>
       <div class="value-card">
         <span class="value-icon">✓</span>
-        <div class="value-title">AI 보조 + 사람 승인</div>
-        <div class="value-desc">AI 실행팀은 정리를 돕고, 중요한 운영 조치는 사람이 확인 후 반영합니다.</div>
+        <div class="value-title">AI가 정리하고, 사람이 확인합니다</div>
+        <div class="value-desc">AI가 초안을 만들고 속도를 냅니다. 중요한 결정과 최종 확인은 사람이 합니다.</div>
       </div>
     </div>
 
